@@ -79,8 +79,9 @@ class DashboardController extends Controller
     public function edit(Project $project)
     {
         $types = Type::all();
+        $technologies = Technology::all();
         $statuses = Status::all();
-        return view('admin.edit', compact('project', 'types', 'statuses'));
+        return view('admin.edit', compact('project', 'types', 'statuses', 'technologies'));
     }
 
     /**
@@ -93,6 +94,7 @@ class DashboardController extends Controller
                 'title' => ['required', 'min:3',  Rule::unique('projects')->ignore($project->id),],
                 'type_id' => ['required'],
                 'status_id' => ['required'],
+                'technology_id' => ['exists:technologies,id'],
                 'start_date' => ['required', 'date_format:Y-m-d'],
                 'end_date' => ['required', 'date_format:Y-m-d'],
                 'image' => ['required', 'image']
@@ -104,6 +106,9 @@ class DashboardController extends Controller
         }
         $project->update($data);
 
+        if ($request->has('technology_id')) {
+            $project->technologies()->sync($request->technology_id);
+        };
 
         return redirect()->route('admin.dashboard');
     }
@@ -134,6 +139,7 @@ class DashboardController extends Controller
     {
         $project = Project::onlyTrashed()->findOrFail($id);
         Storage::delete($project->image);
+        $project->technologies()->sync([]);
         $project->forceDelete();
         return redirect()->route('admin.dashboard');
     }

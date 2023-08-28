@@ -20,7 +20,8 @@
                 <label for="shoreLocation">Type</label>
                 <select name="type_id" id="shoreLocation" class="form-select">
                     @foreach ($types as $type)
-                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                        <option value="{{ $type->id }}" {{ old('type_id') == $type->id ? 'selected' : '' }}>
+                            {{ $type->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -28,7 +29,8 @@
                 <label for="shoreLocation">Status</label>
                 <select name="status_id" id="shoreLocation" class="form-select">
                     @foreach ($statuses as $status)
-                        <option value="{{ $status->id }}">{{ $status->name }}</option>
+                        <option value="{{ $status->id }}" {{ old('status_id') == $status->id ? 'selected' : '' }}>
+                            {{ $status->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -36,7 +38,8 @@
                 <label for="shoreLocation">Technology</label> <br>
                 @foreach ($technologies as $technology)
                     <label for="shoreLocation">{{ $technology->name }}</label>
-                    <input type="checkbox" name="technology_id[]" id="technology_id" value="{{ $technology->id }}">
+                    <input type="checkbox" name="technology_id[]" id="technology_id" value="{{ $technology->id }} "
+                        @if (in_array($technology->id, old('technology_id', []))) checked @endif>
                 @endforeach
             </div>
             <div class="form-group m-2">
