@@ -15,9 +15,10 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">title</th>
-                                    <th scope="col">type</th>
-                                    <th scope="col">status</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Technology</th>
                                     <th scope="col">Start_Date</th>
                                     <th scope="col">End_Date</th>
                                     <th scope="col" class="text-center">Actions</th>
@@ -30,6 +31,7 @@
                                         <td>{{ $project->title }}</td>
                                         <td>{{ $project->type->name }}</td>
                                         <td>{{ $project->status->name }}</td>
+                                        <td>{{ $project->technologies->name }}</td>
                                         <td>{{ $project->start_date }}</td>
                                         <td>{{ $project->end_date }}</td>
                                         <td class="d-flex justify-content-between">
