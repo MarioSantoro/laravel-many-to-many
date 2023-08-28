@@ -18,7 +18,7 @@
             </div>
             <div class="form-group m-2">
                 <label for="shoreLocation">Type</label>
-                <select name="type_id" id="shoreLocation">
+                <select name="type_id" id="shoreLocation" class="form-select">
                     @foreach ($types as $type)
                         <option value="{{ $type->id }}">{{ $type->name }}</option>
                     @endforeach
@@ -26,11 +26,18 @@
             </div>
             <div class="form-group m-2">
                 <label for="shoreLocation">Status</label>
-                <select name="status_id" id="shoreLocation">
+                <select name="status_id" id="shoreLocation" class="form-select">
                     @foreach ($statuses as $status)
                         <option value="{{ $status->id }}">{{ $status->name }}</option>
                     @endforeach
                 </select>
+            </div>
+            <div class="form-group m-2">
+                <label for="shoreLocation">Technology</label> <br>
+                @foreach ($technologies as $technology)
+                    <label for="shoreLocation">{{ $technology->name }}</label>
+                    <input type="checkbox" name="technology_id[]" id="technology_id" value="{{ $technology->id }}">
+                @endforeach
             </div>
             <div class="form-group m-2">
                 <label for="shoreBeds">Image</label>

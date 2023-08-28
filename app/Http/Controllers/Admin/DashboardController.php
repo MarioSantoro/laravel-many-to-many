@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\Status;
+use App\Models\Technology;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -30,8 +31,9 @@ class DashboardController extends Controller
     public function create()
     {
         $types = Type::all();
+        $technologies = Technology::all();
         $statuses = Status::all();
-        return view('admin.create', compact('types', 'statuses'));
+        return view('admin.create', compact('types', 'statuses', 'technologies'));
     }
 
     /**
@@ -44,6 +46,7 @@ class DashboardController extends Controller
                 'title' => ['required', 'min:3', 'unique:projects'],
                 'type_id' => ['required'],
                 'status_id' => ['required'],
+                'technology_id' => ['exists:technologies,id'],
                 'start_date' => ['required', 'date_format:Y-m-d'],
                 'end_date' => ['required', 'date_format:Y-m-d'],
                 'image' => ['required', 'image']
@@ -55,6 +58,9 @@ class DashboardController extends Controller
         }
         $project = Project::create($data);
 
+        if ($request->has('technology_id')) {
+            $project->technologies()->sync($request->technology_id);
+        };
 
         return redirect()->route('admin.dashboard');
     }
