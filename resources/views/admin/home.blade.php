@@ -31,7 +31,17 @@
                                         <td>{{ $project->title }}</td>
                                         <td>{{ $project->type->name }}</td>
                                         <td>{{ $project->status->name }}</td>
-                                        <td>{{ $project->technologies->name }}</td>
+                                        @if (count($project->technologies) > 0)
+                                            <td>
+                                                <ul class="d-flex list-unstyled gap-1 m-0">
+                                                    @foreach ($project->technologies as $tech)
+                                                        <li>{{ $tech->name }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </td>
+                                        @else
+                                            <td>Null</td>
+                                        @endif
                                         <td>{{ $project->start_date }}</td>
                                         <td>{{ $project->end_date }}</td>
                                         <td class="d-flex justify-content-between">
