@@ -54,6 +54,20 @@
             @endif
         </div>
     </nav>
+    @if (session('error'))
+        <div class="alert alert-danger message-error" id="me">
+            Accesso non consentito!!
+            <span class="delete-message-error" id="dme">
+                <button class="btn-cs">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24">
+                        <path
+                            d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z">
+                        </path>
+                    </svg>
+                </button>
+            </span>
+        </div>
+    @endif
     <div class="wrapper"></div>
     <div id="large-header" class="large-header">
         <div class="container main-title fw-semibold text-white">
@@ -277,4 +291,10 @@
             return Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2);
         }
     })();
+
+    let divElementMessageError = document.getElementById("me");
+    let buttonElementDeleteMessageError = document.getElementById("dme");
+    buttonElementDeleteMessageError.addEventListener('click', function() {
+        divElementMessageError.classList.add('d-none');
+    });
 </script>

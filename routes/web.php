@@ -19,7 +19,7 @@ Route::get('/', [GuestDashboardController::class, 'index'])->name('guest.dashboa
 
 Auth::routes();
 
-Route::middleware(['auth', 'verified'])
+Route::middleware(['auth', 'CheckUserRole'])
     ->name('admin.')
     ->prefix('admin')
     ->group(function () {
