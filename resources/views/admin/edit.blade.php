@@ -38,12 +38,21 @@
                     @endforeach
                 </select>
             </div>
-            <div class="form-group m-2">
-                <label for="shoreLocation">Technology</label> <br>
-                @foreach ($technologies as $technology)
-                    <label for="shoreLocation">{{ $technology->name }}</label>
-                    <input class="form-checkbox" type="checkbox" name="technology_id[]" id="technology_id"
-                        value="{{ $technology->id }}" @if ($project->technologies->contains($technology->id)) checked @endif>
+            <label for="technology_id" class="ms-2 mb-4">Technology</label>
+            <div class="d-flex flex-wrap  justify-content-center gap-2">
+                @foreach ($technologies as $index => $technology)
+                    <div class="checkbox-wrapper-16">
+                        <label class="checkbox-wrapper">
+                            <input type="checkbox" name="technology_id[]" id="technology_id" value="{{ $technology->id }} "
+                                @if ($project->technologies->contains($technology->id)) checked @endif class="checkbox-input" />
+                            <span class="checkbox-tile">
+                                <span class="checkbox-icon">
+                                    <img src="{{ $technology->image }}" alt="">
+                                </span>
+                                <span class="checkbox-label">{{ $technology->name }}</span>
+                            </span>
+                        </label>
+                    </div>
                 @endforeach
             </div>
             <div class="form-group m-2">
