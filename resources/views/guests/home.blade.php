@@ -3,12 +3,21 @@
 <div class="guests ">
     <nav class="navbar-guests ">
         <div class="container d-flex align-items-center justify-content-between">
+
             <a class="navbar-brand guest" href="{{ url('/') }}">Mario Santoro</a>
             @if (Route::has('login'))
                 <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10 d-flex">
-                    @auth
-                        <a href="{{ route('admin.dashboard') }}"
-                            class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Home</a>
+                    {{-- @dd(Auth::user()->roles[0]->id) --}}
+                    @if (Auth::user())
+                        @if (Auth::user()->roles[0]->id == 1)
+                            <a href="{{ route('admin.dashboard') }}"
+                                class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Admin</a>
+                        @else
+                            @if (Auth::user()->roles[0]->id == 3)
+                                <a href="{{ route('guest.dashboard') }}"
+                                    class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Guest</a>
+                            @endif
+                        @endif
                     @else
                         <a href="{{ route('login') }}"
                             class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log
@@ -18,7 +27,7 @@
                             <a href="{{ route('register') }}"
                                 class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
                         @endif
-                    @endauth
+                    @endif
                     <a href="#">About</a>
                     <a href="#">Project</a>
                     @auth
